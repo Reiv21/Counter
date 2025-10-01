@@ -6,13 +6,14 @@ using CounterJO.Models;
 
 internal class CountersViewModel : IQueryAttributable
 {
-    public ObservableCollection<CounterViewModel> AllCounters { get; }
+    public ObservableCollection<CounterViewModel> AllViewCounters { get; }
     public ICommand NewCommand { get; }
     public ICommand SelectCounterCommand { get; }
 
     public CountersViewModel()
     {
-        AllCounters = new ObservableCollection<CounterViewModel>(Models.Counter.LoadAll().Select(n => new CounterViewModel(n)));
+        Models.AllCounters.LoadCounters();
+        AllViewCounters = new ObservableCollection<CounterViewModel>(Models.AllCounters.Counters.Select(n => new CounterViewModel(n)));
         NewCommand = new AsyncRelayCommand(NewCounterAsync);
         SelectCounterCommand = new AsyncRelayCommand<CounterViewModel>(SelectCounterAsync);
     }
@@ -35,26 +36,26 @@ internal class CountersViewModel : IQueryAttributable
         if (query.ContainsKey("deleted"))
         {
             string nodeId = query["deleted"].ToString();
-            CounterViewModel matchedNote = AllCounters.Where(n => n.Identifier == nodeId).FirstOrDefault();
+            CounterViewModel matchedNote = AllViewCounters.Where(n => n.Identifier == nodeId).FirstOrDefault();
             if (matchedNote != null)
             {
-                AllCounters.Remove(matchedNote);
+                AllViewCounters.Remove(matchedNote);
             }
         }
         else if (query.ContainsKey("saved"))
         {
             string noteId = query["saved"].ToString();
-            CounterViewModel matchedNote = AllCounters.Where(n => n.Identifier == noteId).FirstOrDefault();
+            CounterViewModel matchedNote = AllViewCounters.Where(n => n.Identifier == noteId).FirstOrDefault();
 
             if (matchedNote != null)
             {
 
                 matchedNote.Reload();
-                AllCounters.Move(AllCounters.IndexOf(matchedNote), 0);
+                //AllViewCounters.Move(AllViewCounters.IndexOf(matchedNote), 0);
             }
             else
             {
-                AllCounters.Insert(0, new CounterViewModel(Counter.Load(noteId)));
+                AllViewCounters.Insert(0, new CounterViewModel(Counter.Load(noteId)));
             }
 
 

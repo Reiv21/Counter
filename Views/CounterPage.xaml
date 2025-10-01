@@ -13,16 +13,42 @@
     <ContentPage.Content>
         <VerticalStackLayout Spacing="10" Margin="5">
             <Editor x:Name="TextEditor"
-                    Placeholder="Enter your note"
+                    Placeholder="Enter your default count"
                     HeightRequest="100"
                     Text="{Binding Count}"/>
+            <Editor x:Name="TextEditorForName"
+                    Placeholder="Enter your counter name"
+                    HeightRequest="100"
+                    Text="{Binding Name}"/>
+            <Label Text="Choose color:" FontSize="14"/>
+            <CollectionView ItemsSource="{Binding AvailableColors}"
+                            SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
+                            SelectionMode="Single"
+                            HeightRequest="50"
+                            Margin="0,0,0,10">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Padding="0" WidthRequest="40" HeightRequest="40" CornerRadius="20"
+                               BackgroundColor="{Binding .}"
+                               BorderColor="Black"
+                               HasShadow="False">
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CounterViewModel}}, Path=SaveRelayCommand}"/>
+                            </Frame.GestureRecognizers>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
             <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
                 <Button Grid.Column="0"
-                        Text="Save"
+                        Text="Create New One"
                         Command="{Binding SaveRelayCommand}">
                 </Button>
                 <Button Grid.Column="1"
-                        Text="Delete"
+                        Text="Cancel"
                         Command="{Binding DeleteRelayCommand}">
 
                 </Button>

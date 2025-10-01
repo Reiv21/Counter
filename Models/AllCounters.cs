@@ -1,30 +1,28 @@
-﻿namespace CounterJO.Models;
+﻿using Newtonsoft.Json;
+
+namespace CounterJO.Models;
 using System.Collections.ObjectModel;
 
-internal class AllCounters
+internal static class AllCounters
 {
-    public ObservableCollection<Counter> Counters { get; set; } = new();
-    public AllCounters() => LoadCounters();
+    public static ObservableCollection<Counter> Counters { get; set; } = new();
+    static AllCounters() => LoadCounters();
 
-    public void LoadCounters()
+    public static void LoadCounters()
     {
         Counters.Clear();
         string appDataPath = FileSystem.AppDataDirectory;
 
-        IEnumerable<Counter> counters = Directory
-                .EnumerateFiles(appDataPath, "*.counters.txt")
-                .Select(filename => new Counter()
-                {
-                    FileName = filename,
-                    Count = int.Parse(File.ReadAllText(filename)),
-                    Date = File.GetCreationTime(filename)
-                })
-            ;
-            //.OrderBy(counter => counter.Date);// dont order by cuz it messes with changing counter
+        string filePath = Path.Combine(appDataPath, "counters.json");
+        string text = File.Exists(filePath) ? File.ReadAllText(filePath) : "[]";
 
-        foreach (Counter note in counters)
-        {
-            Counters.Add(note);
-        }
+        Counters = JsonConvert.DeserializeObject<ObservableCollection<Counter>>(text);
+    }
+
+    public static void SaveCounters()
+    {
+        string json = JsonConvert.SerializeObject(Counters);
+        string filePath = Path.Combine(FileSystem.AppDataDirectory, "counters.json");
+        File.WriteAllText(filePath, json);
     }
 }
