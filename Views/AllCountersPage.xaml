@@ -27,44 +27,27 @@
         <CollectionView x:Name="countersCollection"
                         ItemsSource="{Binding AllViewCounters}"
                         Margin="20"
-                        SelectionMode="Single"
-                        SelectionChangedCommand="{Binding SelectCounterCommand}"
-                        SelectionChangedCommandParameter="{Binding x:DataType='CollectionView', Source={RelativeSource Self}, Path=SelectedItem}">
+                        SelectionMode="None">
 
             <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"></LinearItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="ViewModels:CounterViewModel">
-                    <StackLayout>
-                        <StackLayout Orientation="Horizontal" Spacing="10" VerticalOptions="Center">
-                            <Frame WidthRequest="20" HeightRequest="20" CornerRadius="10" BackgroundColor="{Binding CustomColor}" BorderColor="Black" HasShadow="False" VerticalOptions="Center"/>
-                            <Label Text="{Binding Name}" FontSize="16" VerticalOptions="Center"/>
+                    <Frame BackgroundColor="{Binding CustomColor}" CornerRadius="10" Padding="10" Margin="0,0,0,10" HasShadow="True">
+                        <StackLayout>
+                            <StackLayout Orientation="Horizontal" Spacing="10" VerticalOptions="Center">
+                                <Label Text="{Binding Name}" FontSize="16" VerticalOptions="Center" TextColor="Black"/>
+                            </StackLayout>
+                            <Label Text="{Binding Count}" FontSize="22" TextColor="Black"/>
+                            <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="1">
+                                <Button Grid.Column="0" Text="Add" Command="{Binding AddRelayCommand}"/>
+                                <Button Grid.Column="1" Text="Substract" Command="{Binding SubstractRelayCommand}"/>
+                                <Button Grid.Column="2" Text="Reset" Command="{Binding ResetRelayCommand}"/>
+                                <Button Grid.Column="4" Text="Delete" Command="{Binding DeleteRelayCommand}"/>
+                            </Grid>
                         </StackLayout>
-                        <Label Text="{Binding Count}"
-                               FontSize="22"></Label>
-                        <Grid ColumnDefinitions="*,*,*,*" ColumnSpacing="1">
-                            <Button Grid.Column="0"
-                                    Text="Add"
-                                    Command="{Binding AddRelayCommand}">
-                            </Button>
-                            <Button Grid.Column="1"
-                                    Text="Substract"
-                                    Command="{Binding SubstractRelayCommand}">
-
-                            </Button>
-                            <Button Grid.Column="2"
-                                    Text="Reset"
-                                    Command="{Binding ResetRelayCommand}">
-
-                            </Button>
-                            <Button Grid.Column="4"
-                                    Text="Delete"
-                                    Command="{Binding DeleteRelayCommand}">
-
-                            </Button>
-                        </Grid>
-                    </StackLayout>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

@@ -21,27 +21,24 @@
                     HeightRequest="100"
                     Text="{Binding Name}"/>
             <Label Text="Choose color:" FontSize="14"/>
-            <CollectionView ItemsSource="{Binding AvailableColors}"
-                            SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
-                            SelectionMode="Single"
-                            HeightRequest="50"
-                            Margin="0,0,0,10">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8"/>
-                </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame Padding="0" WidthRequest="40" HeightRequest="40" CornerRadius="20"
-                               BackgroundColor="{Binding .}"
-                               BorderColor="Black"
-                               HasShadow="False">
-                            <Frame.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CounterViewModel}}, Path=SaveRelayCommand}"/>
-                            </Frame.GestureRecognizers>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <Frame BackgroundColor="{Binding SelectedColor, TargetNullValue='#FFFFFF', FallbackValue='#FFFFFF'}" CornerRadius="10" Padding="5" Margin="0,0,0,10" HasShadow="True">
+                <CollectionView ItemsSource="{Binding AvailableColors}"
+                                SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
+                                SelectionMode="Single"
+                                HeightRequest="50">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame Padding="0" WidthRequest="40" HeightRequest="40" CornerRadius="20"
+                                   BackgroundColor="{Binding .}"
+                                   BorderColor="Black"
+                                   HasShadow="False"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Frame>
             <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
                 <Button Grid.Column="0"
                         Text="Create New One"

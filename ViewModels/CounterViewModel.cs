@@ -53,7 +53,7 @@ class CounterViewModel : ObservableObject, IQueryAttributable
         "#FFECB3"  // pomarańczowy
     };
 
-    private string _selectedColor;
+    private string _selectedColor = "#FFFFFF";
     public string SelectedColor
     {
         get => _selectedColor;
@@ -68,12 +68,12 @@ class CounterViewModel : ObservableObject, IQueryAttributable
         }
     }
     
-    public string CustomColor => _counter.CustomColor;
+    public string CustomColor => string.IsNullOrEmpty(_counter.CustomColor) ? "#FFFFFF" : _counter.CustomColor;
     
     public CounterViewModel()
     {
         _counter = new Models.Counter();
-        SelectedColor = _counter.CustomColor;
+        SelectedColor = string.IsNullOrEmpty(_counter.CustomColor) ? "#FFFFFF" : _counter.CustomColor;
         SaveRelayCommand = new AsyncRelayCommand(Save);
         DeleteRelayCommand = new AsyncRelayCommand(Delete);
         AddRelayCommand = new AsyncRelayCommand(Add);
@@ -84,7 +84,7 @@ class CounterViewModel : ObservableObject, IQueryAttributable
     public CounterViewModel(Models.Counter counter)
     {
         _counter = counter;
-        SelectedColor = _counter.CustomColor;
+        SelectedColor = string.IsNullOrEmpty(_counter.CustomColor) ? "#FFFFFF" : _counter.CustomColor;
         SaveRelayCommand = new AsyncRelayCommand(Save);
         DeleteRelayCommand = new AsyncRelayCommand(Delete);
         AddRelayCommand = new AsyncRelayCommand(Add);
