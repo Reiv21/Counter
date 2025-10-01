@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="CounterJO.Views.CounterPage"
+             xmlns:viewModels="clr-namespace:CounterJO.ViewModels"
+             x:DataType="viewModels:CounterViewModel"
+             Title="Counter Page">
+    <ContentPage.BindingContext>
+        <viewModels:CounterViewModel/>
+
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <VerticalStackLayout Spacing="10" Margin="5">
+            <Editor x:Name="TextEditor"
+                    Placeholder="Enter your note"
+                    HeightRequest="100"
+                    Text="{Binding Count}"/>
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
+                <Button Grid.Column="0"
+                        Text="Save"
+                        Command="{Binding SaveRelayCommand}">
+                </Button>
+                <Button Grid.Column="1"
+                        Text="Delete"
+                        Command="{Binding DeleteRelayCommand}">
+
+                </Button>
+            </Grid>
+
+        </VerticalStackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ViewModels="clr-namespace:CounterJO.ViewModels"
+             x:Class="CounterJO.Views.AllCountersPage"
+             x:DataType="ViewModels:CountersViewModel"
+             NavigatedTo="ContentPage_NavigatedTo"
+             Title="Your Counters">
+    
+    <ContentPage.BindingContext>
+        <ViewModels:CountersViewModel>
+            
+        </ViewModels:CountersViewModel>
+    </ContentPage.BindingContext>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Text="Add"
+            Command="{Binding NewCommand}"
+            IconImageSource="{FontImage Glyph='+', Size=22, Color=Black}">
+        
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <CollectionView x:Name="countersCollection"
+                        ItemsSource="{Binding AllCounters}"
+                        Margin="20"
+                        SelectionMode="Single"
+                        SelectionChangedCommand="{Binding SelectCounterCommand}"
+                        SelectionChangedCommandParameter="{Binding x:DataType='CollectionView', Source={RelativeSource Self}, Path=SelectedItem}">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="10"></LinearItemsLayout>
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="ViewModels:CounterViewModel">
+                    <StackLayout>
+                        <Label Text="{Binding Count}"
+                               FontSize="22"></Label>
+                        <Grid ColumnDefinitions="*,*" ColumnSpacing="4">
+                            <Button Grid.Column="0"
+                                    Text="Add"
+                                    Command="{Binding AddRelayCommand}">
+                            </Button>
+                            <Button Grid.Column="1"
+                                    Text="Substract"
+                                    Command="{Binding SubstractRelayCommand}">
+
+                            </Button>
+                        </Grid>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </ContentPage.Content>
+</ContentPage>
