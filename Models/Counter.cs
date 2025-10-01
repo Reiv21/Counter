@@ -20,7 +20,6 @@ internal class Counter
     public void Delete()
     {
         AllCounters.Counters.Remove(this);
-        AllCounters.SaveCounters();
     }
 
     public static Counter Load(string Id)
@@ -29,9 +28,3 @@ internal class Counter
         return AllCounters.Counters.Select(n => n).FirstOrDefault(n => n.Id == Id);
     }
 }
-
-
-
-
-
-
