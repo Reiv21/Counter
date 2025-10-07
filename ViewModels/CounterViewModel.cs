@@ -42,27 +42,28 @@ class CounterViewModel : ObservableObject, IQueryAttributable
     public ICommand AddRelayCommand { get; private set; }
     public ICommand SubstractRelayCommand { get; private set; }
     
-    public ObservableCollection<string> AvailableColors { get; } = new ObservableCollection<string>
+
+    public ObservableCollection<ColorModel> AvailableColors { get; } = new ObservableCollection<ColorModel>
     {
-        "#FFFFFF", // biały
-        "#FFCDD2", // jasnoczerwony
-        "#C8E6C9", // jasnozielony
-        "#BBDEFB", // jasnoniebieski
-        "#FFF9C4", // żółty
-        "#D1C4E9", // fioletowy
-        "#FFECB3"  // pomarańczowy
+        new ColorModel("#FFFFFF"),
+        new ColorModel("#FFCDD2"),
+        new ColorModel("#C8E6C9"),
+        new ColorModel("#BBDEFB"),
+        new ColorModel("#FFF9C4"),
+        new ColorModel("#D1C4E9"),
+        new ColorModel("#FFECB3")
     };
 
-    private string _selectedColor = "#FFFFFF";
-    public string SelectedColor
+    private ColorModel _selectedColor = new ColorModel("#FFFFFF");
+    public ColorModel SelectedColor
     {
         get => _selectedColor;
         set
         {
-            if (_selectedColor != value)
+            if (_selectedColor?.ColorValue != value?.ColorValue)
             {
                 _selectedColor = value;
-                _counter.CustomColor = value;
+                _counter.CustomColor = value?.ColorValue ?? "#FFFFFF";
                 OnPropertyChanged();
             }
         }
@@ -73,7 +74,7 @@ class CounterViewModel : ObservableObject, IQueryAttributable
     public CounterViewModel()
     {
         _counter = new Models.Counter();
-        SelectedColor = string.IsNullOrEmpty(_counter.CustomColor) ? "#FFFFFF" : _counter.CustomColor;
+        SelectedColor = AvailableColors.FirstOrDefault(c => c.ColorValue == _counter.CustomColor) ?? AvailableColors[0];
         SaveRelayCommand = new AsyncRelayCommand(Save);
         DeleteRelayCommand = new AsyncRelayCommand(Delete);
         AddRelayCommand = new AsyncRelayCommand(Add);
@@ -84,7 +85,7 @@ class CounterViewModel : ObservableObject, IQueryAttributable
     public CounterViewModel(Models.Counter counter)
     {
         _counter = counter;
-        SelectedColor = string.IsNullOrEmpty(_counter.CustomColor) ? "#FFFFFF" : _counter.CustomColor;
+        SelectedColor = AvailableColors.FirstOrDefault(c => c.ColorValue == _counter.CustomColor) ?? AvailableColors[0];
         SaveRelayCommand = new AsyncRelayCommand(Save);
         DeleteRelayCommand = new AsyncRelayCommand(Delete);
         AddRelayCommand = new AsyncRelayCommand(Add);
@@ -108,7 +109,7 @@ class CounterViewModel : ObservableObject, IQueryAttributable
     async Task Delete()
     {
         _counter.Delete();
-        AllCounters.SaveCounters(); // Zapisz po usunięciu, ale tylko raz na operację
+        AllCounters.SaveCounters();
         await Shell.Current.GoToAsync($"..?deleted={_counter.Id}");
     }
 

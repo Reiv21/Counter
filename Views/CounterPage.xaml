@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CounterJO.Views.CounterPage"
              xmlns:viewModels="clr-namespace:CounterJO.ViewModels"
+             xmlns:models="clr-namespace:CounterJO.Models"
              x:DataType="viewModels:CounterViewModel"
              Title="Counter Page">
     <ContentPage.BindingContext>
@@ -30,9 +31,9 @@
                         <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="models:ColorModel">
                             <Frame Padding="0" WidthRequest="40" HeightRequest="40" CornerRadius="20"
-                                   BackgroundColor="{Binding .}"
+                                   BackgroundColor="{Binding ColorValue}"
                                    BorderColor="Black"
                                    HasShadow="False"/>
                         </DataTemplate>
