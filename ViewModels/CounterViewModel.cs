@@ -117,7 +117,7 @@ class CounterViewModel : ObservableObject, IQueryAttributable
 
     async Task Delete()
     {
-        _counter.Delete();
+        AllCounters.DeleteCounter(_counter);
         await Shell.Current.GoToAsync($"..?deleted={_counter.Id}");
     }
 

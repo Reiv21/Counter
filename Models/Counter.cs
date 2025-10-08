@@ -17,11 +17,6 @@ internal class Counter
         CustomColor = "#FFFFFF";
     }
 
-    public void Delete()
-    {
-        AllCounters.DeleteCounter(this);
-    }
-
     public static Counter Load(string Id)
     {
         return AllCounters.LoadCounter(Id);

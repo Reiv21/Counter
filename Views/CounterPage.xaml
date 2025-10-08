@@ -22,7 +22,8 @@
                     HeightRequest="100"
                     Text="{Binding Name}"/>
             <Label Text="Choose color:" FontSize="14"/>
-            <Frame BackgroundColor="{Binding SelectedColor.ColorValue}" CornerRadius="10" Padding="5" Margin="0,0,0,10" HasShadow="True">
+            <Frame BackgroundColor="{Binding SelectedColor.ColorValue}" 
+                   CornerRadius="10" Padding="5" Margin="0,0,0,10" HasShadow="True">
                 <CollectionView ItemsSource="{Binding AvailableColors}"
                                 HeightRequest="50">
                     <CollectionView.ItemsLayout>
@@ -35,7 +36,9 @@
                                    BorderColor="Black"
                                    HasShadow="False">
                                 <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CounterViewModel}}, Path=SetSelectedColorCommand}" CommandParameter="{Binding .}" />
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource 
+                                    AncestorType={x:Type viewModels:CounterViewModel}}, 
+                                    Path=SetSelectedColorCommand}" CommandParameter="{Binding .}" />
                                 </Frame.GestureRecognizers>
                             </Frame>
                         </DataTemplate>
