@@ -108,42 +108,37 @@ class CounterViewModel : ObservableObject, IQueryAttributable
         {
             _counter.newCounter = false;
             _counter.DefaultCount = _counter.Count;
+            if (!AllCounters.Counters.Any(c => c.Id == _counter.Id))
+                AllCounters.Counters.Add(_counter);
         }
-        AllCounters.Counters.Add(_counter);
-        AllCounters.SaveCounters();
+        _counter.Save();
         await Shell.Current.GoToAsync($"..?saved={_counter.Id}");
     }
 
     async Task Delete()
     {
-        if(AllCounters.cooldownActive) return;
-        
         _counter.Delete();
-        
         await Shell.Current.GoToAsync($"..?deleted={_counter.Id}");
-        AllCounters.ActivateDeleteCooldown();
-        AllCounters.SaveCounters();
-
     }
 
     async Task Reset()
     {
         _counter.Count = _counter.DefaultCount;
-        AllCounters.SaveCounters();
+        _counter.Save();
         await Shell.Current.GoToAsync($"..?saved={_counter.Id}");
     }
     
     async Task Add()
     {
         _counter.Count++;
-        AllCounters.SaveCounters();
+        _counter.Save();
         await Shell.Current.GoToAsync($"..?saved={_counter.Id}");
     }
     
     async Task Substract()
     {
         _counter.Count--;
-        AllCounters.SaveCounters();
+        _counter.Save();
         await Shell.Current.GoToAsync($"..?saved={_counter.Id}");
     }
     
