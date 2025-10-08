@@ -12,10 +12,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdcc5e0c-45a2-4c3f-a20a-1931d192ffca" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/CounterJO.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/CounterJO.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.CounterJO/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CounterJO/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Models/AllCounters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/AllCounters.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ViewModels/CounterViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ViewModels/CounterViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/CounterPage.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/CounterPage.xaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -132,7 +131,7 @@
       <workItem from="1759842854099" duration="603000" />
       <workItem from="1759843465206" duration="1121000" />
       <workItem from="1759904219430" duration="47000" />
-      <workItem from="1759906605457" duration="696000" />
+      <workItem from="1759906605457" duration="2659000" />
     </task>
     <servers />
   </component>
