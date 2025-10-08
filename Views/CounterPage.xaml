@@ -22,10 +22,8 @@
                     HeightRequest="100"
                     Text="{Binding Name}"/>
             <Label Text="Choose color:" FontSize="14"/>
-            <Frame BackgroundColor="{Binding SelectedColor, TargetNullValue='#FFFFFF', FallbackValue='#FFFFFF'}" CornerRadius="10" Padding="5" Margin="0,0,0,10" HasShadow="True">
+            <Frame BackgroundColor="{Binding SelectedColor.ColorValue}" CornerRadius="10" Padding="5" Margin="0,0,0,10" HasShadow="True">
                 <CollectionView ItemsSource="{Binding AvailableColors}"
-                                SelectedItem="{Binding SelectedColor, Mode=TwoWay}"
-                                SelectionMode="Single"
                                 HeightRequest="50">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout Orientation="Horizontal" ItemSpacing="8"/>
@@ -35,7 +33,11 @@
                             <Frame Padding="0" WidthRequest="40" HeightRequest="40" CornerRadius="20"
                                    BackgroundColor="{Binding ColorValue}"
                                    BorderColor="Black"
-                                   HasShadow="False"/>
+                                   HasShadow="False">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CounterViewModel}}, Path=SetSelectedColorCommand}" CommandParameter="{Binding .}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

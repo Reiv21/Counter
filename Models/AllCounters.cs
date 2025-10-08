@@ -23,6 +23,7 @@ internal static class AllCounters
     {
         string json = JsonConvert.SerializeObject(Counters);
         string filePath = Path.Combine(FileSystem.AppDataDirectory, "counters.json");
+        
         File.WriteAllText(filePath, json);
     }
 }

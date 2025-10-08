@@ -41,7 +41,7 @@ class CounterViewModel : ObservableObject, IQueryAttributable
     public ICommand ResetRelayCommand { get; private set; }
     public ICommand AddRelayCommand { get; private set; }
     public ICommand SubstractRelayCommand { get; private set; }
-    
+    public ICommand SetSelectedColorCommand { get; }
 
     public ObservableCollection<ColorModel> AvailableColors { get; } = new ObservableCollection<ColorModel>
     {
@@ -80,6 +80,7 @@ class CounterViewModel : ObservableObject, IQueryAttributable
         AddRelayCommand = new AsyncRelayCommand(Add);
         SubstractRelayCommand = new AsyncRelayCommand(Substract);
         ResetRelayCommand = new AsyncRelayCommand(Reset);
+        SetSelectedColorCommand = new RelayCommand<ColorModel>(SetSelectedColor);
     }
 
     public CounterViewModel(Models.Counter counter)
@@ -91,6 +92,13 @@ class CounterViewModel : ObservableObject, IQueryAttributable
         AddRelayCommand = new AsyncRelayCommand(Add);
         SubstractRelayCommand = new AsyncRelayCommand(Substract);
         ResetRelayCommand = new AsyncRelayCommand(Reset);
+        SetSelectedColorCommand = new RelayCommand<ColorModel>(SetSelectedColor);
+    }
+
+    private void SetSelectedColor(ColorModel color)
+    {
+        if (color != null)
+            SelectedColor = color;
     }
     
     async Task Save()
