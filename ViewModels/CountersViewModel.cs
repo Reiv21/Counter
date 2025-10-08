@@ -45,20 +45,17 @@ internal class CountersViewModel : IQueryAttributable
         else if (query.ContainsKey("saved"))
         {
             string noteId = query["saved"].ToString();
+            Counter loaded = Counter.Load(noteId);
             CounterViewModel matchedNote = AllViewCounters.Where(n => n.Identifier == noteId).FirstOrDefault();
 
             if (matchedNote != null)
             {
-
                 matchedNote.Reload();
-                //AllViewCounters.Move(AllViewCounters.IndexOf(matchedNote), 0);
             }
-            else
+            else if (loaded != null)
             {
-                AllViewCounters.Insert(0, new CounterViewModel(Counter.Load(noteId)));
+                AllViewCounters.Insert(0, new CounterViewModel(loaded));
             }
-
-
         }
     }
 }

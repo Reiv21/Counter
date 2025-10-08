@@ -17,14 +17,13 @@ internal class Counter
         CustomColor = "#FFFFFF";
     }
 
-    public void Delete()
-    {
-        AllCounters.Counters.Remove(this);
-    }
-
     public static Counter Load(string Id)
     {
-        AllCounters.LoadCounters();
-        return AllCounters.Counters.Select(n => n).FirstOrDefault(n => n.Id == Id);
+        return AllCounters.LoadCounter(Id);
+    }
+
+    public void Save()
+    {
+        AllCounters.SaveCounter(this);
     }
 }

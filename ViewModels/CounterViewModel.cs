@@ -41,7 +41,7 @@ class CounterViewModel : ObservableObject, IQueryAttributable
     public ICommand ResetRelayCommand { get; private set; }
     public ICommand AddRelayCommand { get; private set; }
     public ICommand SubstractRelayCommand { get; private set; }
-    
+    public ICommand SetSelectedColorCommand { get; }
 
     public ObservableCollection<ColorModel> AvailableColors { get; } = new ObservableCollection<ColorModel>
     {
@@ -80,6 +80,7 @@ class CounterViewModel : ObservableObject, IQueryAttributable
         AddRelayCommand = new AsyncRelayCommand(Add);
         SubstractRelayCommand = new AsyncRelayCommand(Substract);
         ResetRelayCommand = new AsyncRelayCommand(Reset);
+        SetSelectedColorCommand = new RelayCommand<ColorModel>(SetSelectedColor);
     }
 
     public CounterViewModel(Models.Counter counter)
@@ -91,6 +92,13 @@ class CounterViewModel : ObservableObject, IQueryAttributable
         AddRelayCommand = new AsyncRelayCommand(Add);
         SubstractRelayCommand = new AsyncRelayCommand(Substract);
         ResetRelayCommand = new AsyncRelayCommand(Reset);
+        SetSelectedColorCommand = new RelayCommand<ColorModel>(SetSelectedColor);
+    }
+
+    private void SetSelectedColor(ColorModel color)
+    {
+        if (color != null)
+            SelectedColor = color;
     }
     
     async Task Save()
@@ -100,37 +108,37 @@ class CounterViewModel : ObservableObject, IQueryAttributable
         {
             _counter.newCounter = false;
             _counter.DefaultCount = _counter.Count;
+            if (!AllCounters.Counters.Any(c => c.Id == _counter.Id))
+                AllCounters.Counters.Add(_counter);
         }
-        AllCounters.Counters.Add(_counter);
-        AllCounters.SaveCounters();
+        _counter.Save();
         await Shell.Current.GoToAsync($"..?saved={_counter.Id}");
     }
 
     async Task Delete()
     {
-        _counter.Delete();
-        AllCounters.SaveCounters();
+        AllCounters.DeleteCounter(_counter);
         await Shell.Current.GoToAsync($"..?deleted={_counter.Id}");
     }
 
     async Task Reset()
     {
         _counter.Count = _counter.DefaultCount;
-        AllCounters.SaveCounters();
+        _counter.Save();
         await Shell.Current.GoToAsync($"..?saved={_counter.Id}");
     }
     
     async Task Add()
     {
         _counter.Count++;
-        AllCounters.SaveCounters();
+        _counter.Save();
         await Shell.Current.GoToAsync($"..?saved={_counter.Id}");
     }
     
     async Task Substract()
     {
         _counter.Count--;
-        AllCounters.SaveCounters();
+        _counter.Save();
         await Shell.Current.GoToAsync($"..?saved={_counter.Id}");
     }
     
