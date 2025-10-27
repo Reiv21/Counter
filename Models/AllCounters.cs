@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace CounterJO.Models;
 using System.Collections.ObjectModel;
@@ -8,21 +9,24 @@ internal static class AllCounters
     public static ObservableCollection<Counter> Counters { get; set; } = new();
     static AllCounters() => LoadCounters();
 
-    private static string CountersDir
-        => Path.Combine(FileSystem.AppDataDirectory, "Counters");
+    private static string CountersFile
+        => Path.Combine(FileSystem.AppDataDirectory, "Counters", "all_counters.json");
 
     public static void LoadCounters()
     {
         Counters.Clear();
-        Directory.CreateDirectory(CountersDir);
-        foreach (var file in Directory.GetFiles(CountersDir, "*.json"))
+        Directory.CreateDirectory(Path.GetDirectoryName(CountersFile));
+        if (File.Exists(CountersFile))
         {
             try
             {
-                var text = File.ReadAllText(file);
-                var counter = JsonConvert.DeserializeObject<Counter>(text);
-                if (counter != null)
-                    Counters.Add(counter);
+                var text = File.ReadAllText(CountersFile);
+                var counters = JsonConvert.DeserializeObject<List<Counter>>(text);
+                if (counters != null)
+                {
+                    foreach (var counter in counters)
+                        Counters.Add(counter);
+                }
             }
             catch { /* ignoruj błędne pliki */ }
         }
@@ -30,37 +34,26 @@ internal static class AllCounters
 
     public static void SaveCounters()
     {
-        Directory.CreateDirectory(CountersDir);
-        foreach (var counter in Counters)
-        {
-            SaveCounter(counter);
-        }
+        Directory.CreateDirectory(Path.GetDirectoryName(CountersFile));
+        string json = JsonConvert.SerializeObject(Counters.ToList(), Formatting.Indented);
+        File.WriteAllText(CountersFile, json);
     }
 
     public static void SaveCounter(Counter counter)
     {
-        Directory.CreateDirectory(CountersDir);
-        string filePath = Path.Combine(CountersDir, $"{counter.Id}.json");
-        string json = JsonConvert.SerializeObject(counter, Formatting.Indented);
-        File.WriteAllText(filePath, json);
+        // Zapisz cały plik, bo wszystko jest w jednym pliku
+        SaveCounters();
     }
 
-    public static void DeleteCounter(Counter counter)
+    public static async Task DeleteCounterAsync(Counter counter)
     {
-        string filePath = Path.Combine(CountersDir, $"{counter.Id}.json");
-        if (File.Exists(filePath))
-            File.Delete(filePath);
         Counters.Remove(counter);
+        SaveCounters();
+        await Task.Delay(1000); // cooldown 1 sekunda
     }
 
     public static Counter LoadCounter(string id)
     {
-        string filePath = Path.Combine(CountersDir, $"{id}.json");
-        if (File.Exists(filePath))
-        {
-            var text = File.ReadAllText(filePath);
-            return JsonConvert.DeserializeObject<Counter>(text);
-        }
-        return null;
+        return Counters.FirstOrDefault(c => c.Id == id);
     }
 }

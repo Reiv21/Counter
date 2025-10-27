@@ -13,9 +13,8 @@
   <component name="ChangeListManager">
     <list default="true" id="fdcc5e0c-45a2-4c3f-a20a-1931d192ffca" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.CounterJO/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.CounterJO/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Models/Counter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Counter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/AllCounters.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/AllCounters.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ViewModels/CounterViewModel.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ViewModels/CounterViewModel.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Views/CounterPage.xaml" beforeDir="false" afterPath="$PROJECT_DIR$/Views/CounterPage.xaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +29,8 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Models/Counter.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ViewModels/CounterViewModel.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock://diff.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="InvalidFacetManager">
     <ignored-facets>
@@ -61,7 +62,7 @@
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;iOS.CounterJO.executor&quot;: &quot;Run&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -74,7 +75,7 @@
   <component name="RunManager" selected=".NET Launch Settings Profile.CounterJO: Windows Machine">
     <configuration name="CounterJO: Windows Machine" type="LaunchSettings" factoryName=".NET Launch Settings Profile">
       <option name="LAUNCH_PROFILE_PROJECT_FILE_PATH" value="$PROJECT_DIR$/CounterJO.csproj" />
-      <option name="LAUNCH_PROFILE_TFM" value="net8.0-windows10.0.19041.0" />
+      <option name="LAUNCH_PROFILE_TFM" value="net9.0-windows10.0.19041.0" />
       <option name="LAUNCH_PROFILE_NAME" value="Windows Machine" />
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <option name="USE_MONO" value="0" />
@@ -120,6 +121,13 @@
         <option name="Build" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue=".NET Launch Settings Profile.CounterJO: Windows Machine" />
+      <item itemvalue="Android.CounterJO" />
+      <item itemvalue="iOS.CounterJO" />
+      <item itemvalue="macOS.CounterJO" />
+      <item itemvalue="UWP.CounterJO" />
+    </list>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -132,7 +140,9 @@
       <workItem from="1759842854099" duration="603000" />
       <workItem from="1759843465206" duration="1121000" />
       <workItem from="1759904219430" duration="47000" />
-      <workItem from="1759906605457" duration="5683000" />
+      <workItem from="1759906605457" duration="6758000" />
+      <workItem from="1760514669117" duration="844000" />
+      <workItem from="1761576197360" duration="717000" />
     </task>
     <servers />
   </component>
